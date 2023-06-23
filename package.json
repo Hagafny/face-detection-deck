@@ -12,7 +12,6 @@
     "help": "mdx-deck"
   },
   "dependencies": {
-    "@builder.io/react": "^2.0.1",
     "@code-surfer/themes": "^3.1.1",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
