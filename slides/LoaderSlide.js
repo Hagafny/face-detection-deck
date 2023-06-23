@@ -12,7 +12,6 @@ function LoaderSlide() {
   useEffect(() => {
     loadImage(imageURL).then((image) =>{
       console.log('image', image)
-      alert('no')
       setLoadedImage(image)
     })
   }, [])
