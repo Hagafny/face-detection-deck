@@ -11,6 +11,7 @@ const useFaceApiModels = () => {
   useEffect(() => {
       const loadModels = async () => {
         await Promise.all([
+          faceapi.loadSsdMobilenetv1Model(modelsFolderURL),
           faceapi.loadTinyFaceDetectorModel(modelsFolderURL),
           faceapi.loadFaceLandmarkModel(modelsFolderURL),
           faceapi.loadFaceExpressionModel(modelsFolderURL)

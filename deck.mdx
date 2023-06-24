@@ -11,58 +11,23 @@ import { ZoomSteps } from './components/ZoomSteps/ZoomSteps.js'
 import { SideBySide } from './layouts/SideBySide.js'
 import myTheme from './theme/theme'
 import { SlideLayout } from './layouts/SlideLayout.js'
-import RonImage from './components/RonImage.js'
 import CropSimulator from './components/CropSimulator.js'
 import MLModalLoader from './components/MLModalLoader.js'
+import { AnimatedBulletList } from './layouts/AnimatedLIst.js';
+import IntroSlide from './slides/introSlide.js'
 
 export const theme = myTheme
 
 <MLModalLoader/>
-## How we used Face Detection to create a delightful User Experience
-
-<p></p>
-<RonImage showDetections={false} />
+<IntroSlide showDetections={false} />
 
 ---
 
-## How we used Face Detection to create a delightful User Experience
-<p></p>
-<RonImage showDetections={true} />
+<IntroSlide showDetections={true} />
 
 ---
 
-# Hello 👋
-
-<IntroGrid>
-  <div style={{gridRow:'1/2', gridColumn:'1/3', width: '100%', height: '100%'}}>
-  <ImageDeck deckImage={DECK_IMAGES.RON} /> 
-  <div style={{textAlign: 'center', fontSize: '46px'}}>Ron Hagafny</div>`
-  </div>
-
-  <Steps>
-
-<ImageDeck
-  width={'50%'}
-  height={'50%'}
-  deckImage={DECK_IMAGES.MIXTILES}
-  style={{ gridRow: '2/3', gridColumn: '1/2' }}
-/>
-
-  </Steps>
-</IntroGrid>
-
----
-
-<iframe style={{ width: '100vw', height: '90vh'}} src="https://www.mixtiles.com/photos" title="Mixtiles Tile Picker"></iframe>
-
----
-
-<ImageDeck
-  width={'100%'}
-  height={'100%'}
-  deckImage={DECK_IMAGES.HOMEPAGE}
-  styles={{ backgroundSize: 'cover' }}
-/>
+<iframe style={{ width: '60vw', height: '60vh'}} src="https://www.mixtiles.com/photos" title="Mixtiles Tile Picker"></iframe>
 
 ---
 

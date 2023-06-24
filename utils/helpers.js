@@ -14,4 +14,4 @@ export function loadImage(imageUrl) {
 
 export const getServerURL = () => `http://localhost:${SERVER_PORT}`
 
-export const getServerImage = imgSrc => `${getServerURL()}/${imgSrc}`
+export const getServerImage = imgSrc => `${getServerURL()}/images/${imgSrc}`

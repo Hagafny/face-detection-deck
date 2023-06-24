@@ -2,27 +2,26 @@ import React, { useCallback } from 'react';
 import * as faceapi from 'face-api.js';
 import BaseFaceAPIImage from './BaseFaceAPIImage';
 
-function FaceAPIImage(faceDetectionProps) {
-  const drawDetections = useCallback((detections, imageCanvas) => {    
-    const minConfidence = 0.05
-    if (faceDetectionProps.drawDetections) {
+function FaceAPIImage({ faceDetector, detectionBoxOptions, drawDetections, drawLandmarks, drawExpressions, ...imageProps }) {
+  const drawBoxes = useCallback((detections, canvas) => {    
+    if (drawDetections) {
       detections.forEach((detection) => {
-        const drawBox = new faceapi.draw.DrawBox(detection.detection.box, faceDetectionProps.detectionBoxOptions);
-        drawBox.draw(imageCanvas);
+        const drawBox = new faceapi.draw.DrawBox(detection.detection.box, detectionBoxOptions);
+        drawBox.draw(canvas);
     }) 
   }
 
-    if (faceDetectionProps.drawFaceExpressions) {
-      faceapi.draw.drawFaceExpressions(imageCanvas, detections, minConfidence)
+    if (drawExpressions) {
+      faceapi.draw.drawFaceExpressions(canvas, detections, 0.05)
     }
 
-    if (faceDetectionProps.drawLandmarks) {
-      faceapi.draw.drawFaceLandmarks(imageCanvas, detections)
+    if (drawLandmarks) {
+      faceapi.draw.drawFaceLandmarks(canvas, detections)
     }
 }, [])
 
   return (
-    <BaseFaceAPIImage drawBoxes={drawDetections} {...faceDetectionProps} />
+    <BaseFaceAPIImage drawBoxes={drawBoxes} faceDetector={faceDetector} {...imageProps} />
   );
 }
 

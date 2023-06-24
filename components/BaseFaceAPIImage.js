@@ -2,8 +2,8 @@ import React, { useEffect  } from 'react';
 import useDetections from '../hooks/useDetections';
 import { getServerImage } from '../utils/helpers';
 
-function BaseFaceAPIImage({ src, drawBoxes,  ...imageProps }) {
-  const { detections, imageRef, canvasRef } = useDetections(src) 
+function BaseFaceAPIImage({ src, drawBoxes, faceDetector, ...imageProps }) {
+  const { detections, imageRef, canvasRef } = useDetections(src, faceDetector) 
   const imageURL = getServerImage(src)
 
   useEffect(() => {
