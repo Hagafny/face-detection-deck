@@ -1,6 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+
 import * as faceapi from 'face-api.js';
 import { getServerImage } from '../utils/helpers';
 import useFaceApiModels from '../hooks/useFaceApiModels';
@@ -80,23 +86,41 @@ const FaceDetectionApplet = () => {
         <canvas ref={canvasRef} style={{ position: 'absolute', top: 0, left: 0 }} />
       </div>
       <div style={{ display: 'flex', flexDirection: 'column' }}>
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <label style={{ marginRight: '15px' }} htmlFor="imageSelect">Image:</label>
-          <select id="imageSelect" value={imageURL} onChange={(e) => setImageURL(e.target.value)}>
-            <option>1</option>
-            <option>2</option>
-          </select>
-        </div>
 
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <label style={{ marginRight: '15px' }} htmlFor="modelSelect">Face Detection Model:</label>
+        {/* Image Select */}
+        <Box sx={{ minWidth: 120 }}>
+          <FormControl fullWidth>
+            <InputLabel id="imageSelect-label">Image</InputLabel>
+            <Select
+              labelId="imageSelect"
+              id="imageSelect"
+              value={imageURL}
+              label="Age"
+              onChange={(e) => setImageURL(e.target.value)}
+            >
+              <MenuItem value={1}>Image 1</MenuItem>
+              <MenuItem value={2}>Image 2</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
 
-          <select id="modelSelect" value={selectedModel} onChange={(e) => setSelectedModel(e.target.value)}>
-            {Object.entries(FACE_DETECTION_MODELS).map(([modelKey, modelName]) => (
-              <option key={modelKey}>{modelName}</option>
-            ))}
-          </select>
-        </div>
+        {/* Model Select */}
+        <Box sx={{ minWidth: 120, marginTop: "20px" }}>
+          <FormControl fullWidth>
+            <InputLabel id="modelSelect-label">Face Detection Model</InputLabel>
+            <Select
+              labelId="modelSelect"
+              id="modelSelect"
+              value={selectedModel}
+              label="Face Detection Model"
+              onChange={(e) => setSelectedModel(e.target.value)}
+            >
+              {Object.entries(FACE_DETECTION_MODELS).map(([modelKey, modelName]) => (
+                <MenuItem value={modelName}>{modelName}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </Box>
 
         <div style={{ display: 'flex', flexDirection: 'column', marginTop: '1rem' }}>
           <CheckBoxLabelRow checked={drawDetections} onChange={(e) => setDrawDetections(e.target.checked)} label={"Draw Detections"} />

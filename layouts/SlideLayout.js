@@ -6,6 +6,18 @@ const darkTheme = createTheme({
     palette: {
         mode: 'dark',
     },
+    components: {
+        MuiSwitch: {
+            styleOverrides: {
+                colorPrimary: {
+                    "&.Mui-checked": {
+                        // Controls checked color for the thumb
+                        color: '#FF0277',
+                    }
+                },
+            }
+        }
+    }
 });
 
 export const SlideLayout = ({ title, direction = 'row', children }) => {
