@@ -16,7 +16,7 @@ export const AnimatedIconsSlide = ({icons = []}) => {
                 height: '100vh',
                 display: 'grid',
                 gridTemplateColumns: `repeat(${icons.length}, 1fr)`,
-                gridTemplateRows: 'repeat(1, 1fr)',
+                gridTemplateRows: 'repeat(2, 1fr)',
                 gridColumnGap: '0px',
                 gridRowGap: '0px',
             }}
