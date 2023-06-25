@@ -9,8 +9,8 @@ const Tile = ({ width = ORIGINAL_WIDTH, height = ORIGINAL_HEIGHT, children }) =>
   const innerHeight = Math.round(height - height * (40 / ORIGINAL_HEIGHT));
 
   return (
-    <div style={{ position: 'relative', padding: '1px', backgroundColor: 'white' }} >
-      <ImageDeck src='Tile.svg' style={{ width, height }} />
+    <div style={{ position: 'relative' }} >
+      <ImageDeck src='WhiteTile.svg' style={{ width, height }} />
 
       <div style={{ position: 'absolute', left: 10, top: 10, width: innerWidth, height: innerHeight, overflow: 'none' }}>
         {children}

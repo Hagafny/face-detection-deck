@@ -11,12 +11,14 @@ const SimulatorSlide = () => {
 
   return (
 
-    <>
+    <div style={{ display: 'flex', gap: '50px' }}>
+      <div style={{ display:'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
             <CropSimulator src={imageURL} style={{width:'400px', height: '600px'}} onLastImage={setCroppedImage} />
+      </div>
             <Tile width={300} height={300}>
                <img style={{ width: "100%" }} src={croppedImage} />
             </Tile>
-</>
+</div>
         
   )
 }

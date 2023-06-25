@@ -20,6 +20,8 @@ const BOX_OPTIONS = [{
   boxColor: MIXTIELS_PINK
 }]
 
+const DISPLAY_SIZE = { naturalWidth: 400, naturalHeight: 600 }
+
 function getBoundingRect(boxes) {
     if (!boxes || boxes.length === 0) {
       return null;  // return null if input is empty
@@ -74,6 +76,22 @@ function getBoundingRect(boxes) {
     return mergedRect;
   }
 
+  // Scale bounding rect to fit original image dimensions
+  export function scaleUpBoundingRect ({
+    rect,
+    originalImageWidth,
+    originalImageHeight,
+  }) {
+
+    const scale = originalImageWidth / DISPLAY_SIZE.naturalWidth
+    return {
+      x: rect.x * scale,
+      y: rect.y * scale,
+      width: rect.width * scale,
+      height: rect.height * scale,
+    }
+  }
+
   const NO_OP = () => {}
 function padRect(rect, { top = 0, right = 0, bottom = 0, left = 0 }) {
     return {
@@ -106,8 +124,8 @@ function CropSimulator({specificStage = -1, onLastImage = NO_OP, ...faceDetectio
       console.log('faces after buffer', upperBufferBoxes)
 
     const boundingRect = unionRects(...upperBufferBoxes)
-    const smartCrop = cropToFitFaces(actualImage, boundingRect) 
-    
+    const smartCrop = cropToFitFaces(DISPLAY_SIZE, boundingRect)
+
     console.log('allFacesRect', boundingRect)
     console.log('smartCrop',smartCrop)
   
@@ -143,7 +161,12 @@ const onNextAnimationStage = () => {
   if (nextStage > allBoxPhases.length - 1) { // after final stage 
     const finalRect = allBoxPhases[allBoxPhases.length -1][0]
     console.log('finalRect', finalRect)
-    onLastImage(cropImage(originalImage, finalRect))
+    const scaledBoundingRect = scaleUpBoundingRect({
+      rect: finalRect,
+      originalImageWidth: originalImage.naturalWidth,
+      originalImageHeight: originalImage.naturalHeight,
+    })
+    onLastImage(cropImage(originalImage, scaledBoundingRect))
   } 
 
   setStage(nextStage)
