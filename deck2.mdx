@@ -1,0 +1,208 @@
+import './styles.css'
+import { Steps, Notes, useSteps } from 'mdx-deck'
+import { CodeSurfer, CodeSurferColumns, Step } from 'code-surfer'
+import { vsDark, nightOwl } from '@code-surfer/themes'
+import { Button } from './components/Button/Button.js'
+import { RandomlyPlaced } from './layouts/RandomlyPlaced.js'
+import { ImageDeck, DECK_IMAGES } from './images/ImageDeck.js'
+import { FadeIn } from './components/FadeIn.js'
+import { IntroGrid } from './layouts/IntroGrid.js'
+import { ZoomSteps } from './components/ZoomSteps/ZoomSteps.js'
+import { SideBySide } from './layouts/SideBySide.js'
+import myTheme from './theme/theme'
+import { SlideLayout } from './layouts/SlideLayout.js'
+import CropSimulator from './components/CropSimulator.js'
+import MLModalLoader from './components/MLModalLoader.js'
+import { AnimatedBulletList } from './layouts/AnimatedBulletList.js';
+import IntroSlide from './slides/introSlide.js'
+import FaceDetectionSlide from './slides/FaceDetectionSlide.js'
+import { AnimatedIconsSlide } from './slides/AnimatedIconsSlide.js'
+import Tile from './components/Tile.js'
+import SimulatorSlide from './slides/SimulatorSlide.js'
+
+import rocket from './images/rocket.png';
+import seo from './images/seo.png';
+import marketing from './images/marketing.png';
+
+export const theme = myTheme
+const smartCropExample = 'ron2.jpg'
+
+<MLModalLoader/>
+<IntroSlide showDetections={false} />
+
+---
+
+<IntroSlide showDetections={true} />
+
+---
+
+<SlideLayout title='Agenda' direction='column'>
+  <AnimatedIconsSlide icons={[rocket,seo]} />
+  
+  {/* <AnimatedBulletList>
+    <span>Problem Identification</span>
+    <span>The Learning Curve </span>
+    <span> Deep Dive Into Code </span>
+  </AnimatedBulletList> */}
+
+</SlideLayout>
+
+---
+
+<SlideLayout title='The Crop Problem'>
+  <iframe style={{ width: '85vw', height: '75vh'}} src="https://www.mixtiles.com/photos" title="Mixtiles Tile Picker"></iframe>
+</SlideLayout>
+
+---
+
+<SlideLayout title='Users ended up getting tiles that were not cropped appropriately at all.' direction='column'>
+  <AnimatedBulletList>
+    <span>Many complaints to customer support </span>
+    <span>Lowered satisfaction score </span>
+  </AnimatedBulletList>
+</SlideLayout>
+
+---
+
+<SlideLayout title='Smart Crop' direction='column'>
+  <AnimatedBulletList>
+    <span>Produces a crop that best encapsulates the scene </span>
+    <span>Does not hurt our current experience </span>
+    <span> Works well on a wide range of modern mobile devices </span>
+  </AnimatedBulletList>
+</SlideLayout>
+
+---
+
+<SlideLayout title='Tensorflow'>
+Tenserflow image here
+</SlideLayout>
+
+---
+
+<SlideLayout title='Tensorflow Summary' direction='column'>
+   <AnimatedBulletList>
+    <span>  Using Object detection is not fast at all. </span>
+    <span>The Model weighed around 5MB! </span>
+    <span>  Using Object detection is not fast at all. </span>
+    <span>The Model weighed around 5MB! </span>
+      </AnimatedBulletList>
+</SlideLayout>
+
+---
+
+## 90% of Mixtiles uploads are humans
+
+---
+
+<SlideLayout title='face-api.js'>
+face-api.js image here
+</SlideLayout>
+
+---
+
+<FaceDetectionSlide />
+
+---
+
+<SlideLayout title='Fade Detection Code examples'>
+
+</SlideLayout>
+
+---
+
+<SlideLayout title='face-api.js Summary' direction='column'>
+   <AnimatedBulletList>
+    <span>Detects only one type of object - faces, and it does it very well</span>
+    <span>If we go with the tiny model, it can weigh as light as 200KB </span>
+      </AnimatedBulletList>
+</SlideLayout>
+
+---
+
+<SimulatorSlide />
+
+---
+
+<CodeSurferColumns>
+
+<Step>
+
+```js
+code for first crop
+```
+
+<CropSimulator specificStage={0} src={smartCropExample} style={{width:'400px', height: '600px'}} />
+
+</Step>
+
+<Step>
+
+```js 2
+hey
+code for second crop
+```
+
+<CropSimulator specificStage={1} src={smartCropExample} style={{width:'400px', height: '600px'}} />
+
+</Step>
+
+<Step>
+
+```js 2
+check
+code for third crop
+```
+
+<CropSimulator specificStage={2} src={smartCropExample} style={{width:'400px', height: '600px'}} />
+
+</Step>
+
+<Step>
+
+```js 2
+finish
+code for smart crop
+```
+
+<CropSimulator specificStage={3}  src={smartCropExample} style={{width:'400px', height: '600px'}} />
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<SlideLayout title='Good Crop /  Bad Crop'>
+ Images of before and after the crop
+</SlideLayout>
+
+---
+
+<SlideLayout title='Room for improvements' direction='column'>
+  <AnimatedBulletList>
+    <span>Won’t work on images without faces (10% of uploads) </span>
+    <span>If we go with the most lightweight model, it will not detect some faces </span>
+    <span>Has an impact on bundle size. We can always look for ways to optimize this </span>
+  </AnimatedBulletList>
+</SlideLayout>
+
+---
+
+<SlideLayout title='A glimpse Into The Future'>
+Chat GPT and Dalle Image here
+</SlideLayout>
+
+---
+
+<SlideLayout title='Summary' direction='column'>
+   <AnimatedBulletList>
+    <span>How cropping became a big issue. </span>
+    <span>Our process of experimentation with Tensorflow </span>
+    <span>Code examples of how face detection works in general and how we used it to build a “smart crop” algorithm </span>
+   </AnimatedBulletList>
+</SlideLayout>
+
+---
+
+# Thank you for listening!
