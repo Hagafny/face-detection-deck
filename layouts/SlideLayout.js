@@ -1,13 +1,24 @@
 import React from 'react'
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
+const darkTheme = createTheme({
+    palette: {
+        mode: 'dark',
+    },
+});
 
 export const SlideLayout = ({ title, direction = 'row', children }) => {
-    return (<div style={{ width: '80vw', height: '100vh' }}>
-        <div>
-            <h1 style={{textAlign: 'center'}}>{title}</h1>
+    return (<ThemeProvider theme={darkTheme}>
+        <div style={{ width: '80vw', height: '100vh' }}>
+            <div>
+                <h1 style={{ textAlign: 'center' }}>{title}</h1>
+            </div>
+            <div style={{ display: 'flex', justifyContent: 'center', flexDirection: direction }}>
+                {children}
+            </div>
         </div>
-        <div style={{display: 'flex', justifyContent: 'center', flexDirection: direction }}>
-            {children}
-        </div>
-    </div>
+    </ThemeProvider>
     )
 }
+

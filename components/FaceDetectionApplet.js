@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 import * as faceapi from 'face-api.js';
 import { getServerImage } from '../utils/helpers';
 import useFaceApiModels from '../hooks/useFaceApiModels';
@@ -72,90 +74,47 @@ const FaceDetectionApplet = () => {
   };
 
   return (
-<div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', width: '100%', maxWidth: '1200px', columnGap: '5rem', alignItems: 'center' }}>
-  <div style={{ position: 'relative' }}>
-    <img ref={imgRef} src={getServerImage(`e${imageURL}.jpg`)} alt="" crossOrigin="Anonymous" width="600" />
-    <canvas ref={canvasRef} style={{ position: 'absolute', top: 0, left: 0 }} />
-  </div>
-  <div style={{ display: 'flex', flexDirection: 'column' }}>
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      <label style={{ marginRight: '15px'}} htmlFor="imageSelect">Image:</label>
-      <select id="imageSelect" value={imageURL} onChange={(e) => setImageURL(e.target.value)}>
-        <option>1</option>
-        <option>2</option>
-      </select>
-    </div>
-
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      <label style={{ marginRight: '15px'}}  htmlFor="modelSelect">Face Detection Model:</label>
-      <select id="modelSelect" value={selectedModel} onChange={(e) => setSelectedModel(e.target.value)}>
-        {Object.entries(FACE_DETECTION_MODELS).map(([modelKey, modelName]) => (
-          <option key={modelKey}>{modelName}</option>
-        ))}
-      </select>
-    </div>
-
-    {selectedModel === FACE_DETECTION_MODELS.TINY && (
-      <div style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
-        <div>
-        <label style={{ marginRight: '15px'}} htmlFor="inputSizeSelect">Input Size:</label>
-        <select id="inputSizeSelect" value={inputSize} onChange={handleInputSizeChange}>
-          {tinyFaceDetectorInputSizeOptions.map((size) => (
-            <option key={size}>{size}</option>
-          ))}
-        </select>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', width: '100%', maxWidth: '1200px', columnGap: '5rem', alignItems: 'center' }}>
+      <div style={{ position: 'relative' }}>
+        <img ref={imgRef} src={getServerImage(`e${imageURL}.jpg`)} alt="" crossOrigin="Anonymous" width="600" />
+        <canvas ref={canvasRef} style={{ position: 'absolute', top: 0, left: 0 }} />
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <label style={{ marginRight: '15px' }} htmlFor="imageSelect">Image:</label>
+          <select id="imageSelect" value={imageURL} onChange={(e) => setImageURL(e.target.value)}>
+            <option>1</option>
+            <option>2</option>
+          </select>
         </div>
-<div>
-        <label style={{ marginRight: '15px'}} htmlFor="scoreThresholdRange">Score Threshold:</label>
-        <input 
-          id="scoreThresholdRange"
-          type="range"
-          min={0}
-          max={0.99}
-          step={0.03}
-          value={scoreThreshold}
-          onChange={handleScoreThresholdChange}
-        />
-        <div>Value: {scoreThreshold}</div>
+
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <label style={{ marginRight: '15px' }} htmlFor="modelSelect">Face Detection Model:</label>
+
+          <select id="modelSelect" value={selectedModel} onChange={(e) => setSelectedModel(e.target.value)}>
+            {Object.entries(FACE_DETECTION_MODELS).map(([modelKey, modelName]) => (
+              <option key={modelKey}>{modelName}</option>
+            ))}
+          </select>
+        </div>
+
+        <div style={{ display: 'flex', flexDirection: 'column', marginTop: '1rem' }}>
+          <CheckBoxLabelRow checked={drawDetections} onChange={(e) => setDrawDetections(e.target.checked)} label={"Draw Detections"} />
+          <CheckBoxLabelRow checked={drawLandmarks} onChange={(e) => setDrawLandmarks(e.target.checked)} label="Draw Landmarks" />
+          <CheckBoxLabelRow checked={drawExpressions} onChange={(e) => setDrawExpressions(e.target.checked)} label="Draw Expressions" />
         </div>
       </div>
-    )}
-
-    {selectedModel === FACE_DETECTION_MODELS.SSD && (
-      <div style={{ marginLeft: '1.5rem', marginTop: '0.5rem' }}>
-        <label style={{ marginRight: '15px'}} htmlFor="minConfidenceRange">Min Confidence:</label>
-        <input style={{ marginRight: '15px'}}
-          id="minConfidenceRange"
-          type="range"
-          min={0}
-          max={0.99}
-          step={0.03}
-          value={minConfidence}
-          onChange={handleMinConfidence}
-        />
-        <div>Value: {minConfidence}</div>
-      </div>
-    )}
-
-    <div style={{ display: 'flex', flexDirection: 'column', marginTop: '1rem' }}>
-      <CheckBoxLabelRow checked={drawDetections} onChange={(e) => setDrawDetections(e.target.checked)}>Draw Detections</CheckBoxLabelRow>
-      <CheckBoxLabelRow checked={drawLandmarks} onChange={(e) => setDrawLandmarks(e.target.checked)}>Draw Landmarks</CheckBoxLabelRow>
-      <CheckBoxLabelRow checked={drawExpressions} onChange={(e) => setDrawExpressions(e.target.checked)}>Draw Expressions</CheckBoxLabelRow>
     </div>
-  </div>
-</div>
   );
 };
 
-const CheckBoxLabelRow = ({ checked, onChange, children}) => (
-  <label style={{display: 'flex'}}>
-  <input style={{ marginRight: '15px'}}
-    type="checkbox"
-    checked={checked}
-    onChange={onChange}
+const CheckBoxLabelRow = ({ checked, onChange, label }) => (
+  <FormControlLabel
+    control={
+      <Switch checked={checked} onChange={onChange} name={label} />
+    }
+    label={label}
   />
-  {children}
-</label>
 )
 
 export default FaceDetectionApplet;
