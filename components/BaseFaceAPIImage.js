@@ -8,7 +8,7 @@ function BaseFaceAPIImage({ src, drawBoxes, faceDetector, ...imageProps }) {
 
   useEffect(() => {
     if (detections.length > 0) {
-        drawBoxes(detections, canvasRef.current)
+        drawBoxes(detections, canvasRef.current, imageRef.current)
     }
 
     return () => {
@@ -16,7 +16,7 @@ function BaseFaceAPIImage({ src, drawBoxes, faceDetector, ...imageProps }) {
       const context = canvas.getContext('2d');
       context.clearRect(0, 0, canvas.width, canvas.height);
     }
-  }, [detections, drawBoxes, canvasRef.current]);
+  }, [detections, drawBoxes, canvasRef.current, imageRef.current]);
 
   return (
     <div style={{position: 'relative'}}>
