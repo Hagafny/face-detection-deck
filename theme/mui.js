@@ -39,7 +39,6 @@ const muiTheme = createTheme({
       },
       styleOverrides: {
         root: {
-          transform: 'scale(5)',
           textTransform: 'none',
           borderRadius: '8px',
           fontSize: '1.625rem',

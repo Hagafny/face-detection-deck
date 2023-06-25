@@ -1,5 +1,5 @@
 import './styles.css'
-import { Steps, Notes } from 'mdx-deck'
+import { Steps, Notes, useSteps } from 'mdx-deck'
 import { CodeSurfer, CodeSurferColumns, Step } from 'code-surfer'
 import { vsDark, nightOwl } from '@code-surfer/themes'
 import { Button } from './components/Button/Button.js'
@@ -16,8 +16,10 @@ import MLModalLoader from './components/MLModalLoader.js'
 import { AnimatedBulletList } from './layouts/AnimatedLIst.js';
 import IntroSlide from './slides/introSlide.js'
 import FaceDetectionSlide from './slides/FaceDetectionSlide.js'
+import Tile from './components/Tile.js'
 
 export const theme = myTheme
+const smartCropExample = 'ron2.jpg'
 
 <MLModalLoader/>
 <IntroSlide showDetections={false} />
@@ -28,7 +30,66 @@ export const theme = myTheme
 
 ---
 
+<CropSimulator src={smartCropExample} style={{width:'400px', height: '600px'}} />
+
+---
+
+<CodeSurferColumns>
+
+<Step>
+
+```js
+code for first crop
+```
+
+<CropSimulator specificStage={0} src={smartCropExample} style={{width:'400px', height: '600px'}} />
+
+</Step>
+
+<Step>
+
+```js 2
+hey
+code for second crop
+```
+
+<CropSimulator specificStage={1} src={smartCropExample} style={{width:'400px', height: '600px'}} />
+
+</Step>
+
+<Step>
+
+```js 2
+check
+code for third crop
+```
+
+<CropSimulator specificStage={2} src={smartCropExample} style={{width:'400px', height: '600px'}} />
+
+</Step>
+
+<Step>
+
+```js 2
+finish
+code for smart crop
+```
+
+<CropSimulator specificStage={3}  src={smartCropExample} style={{width:'400px', height: '600px'}} />
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
 <FaceDetectionSlide />
+
+---
+
+<Tile>
+  <ImageDeck src={smartCropExample} width='100%' />
+</Tile>
 
 ---
 
@@ -36,7 +97,7 @@ export const theme = myTheme
 
 ---
 
-<CodeSurfer theme={vsDark}>
+<CodeSurfer theme={myTheme}>
 
 ```js showNumbers
 const FaqPage = ({ data }) => {

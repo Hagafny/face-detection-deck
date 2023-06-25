@@ -10,7 +10,13 @@ function BaseFaceAPIImage({ src, drawBoxes, faceDetector, ...imageProps }) {
     if (detections.length > 0) {
         drawBoxes(detections, canvasRef.current)
     }
-  }, [detections, drawBoxes]);
+
+    return () => {
+      const canvas = canvasRef.current;
+      const context = canvas.getContext('2d');
+      context.clearRect(0, 0, canvas.width, canvas.height);
+    }
+  }, [detections, drawBoxes, canvasRef.current]);
 
   return (
     <div style={{position: 'relative'}}>

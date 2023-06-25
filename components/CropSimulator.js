@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import BaseFaceAPIImage from './BaseFaceAPIImage';
 import animateRectangles from '../utils/animateRecs';
 import * as faceapi from 'face-api.js';
+import { Button } from './Button/Button';
 
 const MIXTIELS_PINK = '#eb2371'
 
@@ -15,7 +16,7 @@ const BOX_OPTIONS = [{
   label:'faces union',
   boxColor: MIXTIELS_PINK
 },{
-  label:'top buffer',
+  label:'smart crop',
   boxColor: MIXTIELS_PINK
 }]
 
@@ -53,20 +54,16 @@ function padRect(rect, { top = 0, right = 0, bottom = 0, left = 0 }) {
     };
   }
 
-function CropSimulator(faceDetectionProps) {
+function CropSimulator({specificStage = -1, ...faceDetectionProps}) {
   const [stage, setStage] = useState(0)
   const [allBoxPhases, setAllBoxPhases] = useState([])
   const [canvas, setCanvas] = useState(null)
 
   const animateBoxes = useCallback((detections, imageCanvas) => { 
     const boxes = detections.map(detection => detection.detection.box)   
-    boxes.forEach((box) => {
-        const drawBox = new faceapi.draw.DrawBox(box,  {...BOX_OPTIONS[0]});
-        drawBox.draw(imageCanvas);
-    }) 
 
-    const stage1 = [...boxes]
-    const stage2 = stage1.map((box) => {
+    const faceDetectionBoxes = [...boxes]
+    const upperBufferBoxes = faceDetectionBoxes.map((box) => {
         // We add 1/2-face to the top of each face because the face detection API
         // returns only the actual face without the top of the head.
         // This seems to do the job pretty well.
@@ -75,34 +72,44 @@ function CropSimulator(faceDetectionProps) {
         });
       });
 
-    const stage3 = [getBoundingRect(stage2)]
+    const boudingRect = [getBoundingRect(upperBufferBoxes)]
 
-    const stage4 = stage2.length > 1 ? stage3.map((box) => {
+    const smartCrop = upperBufferBoxes.length > 1 ? boudingRect.map((box) => {
         // We add 1/2-face to the top of each face because the face detection API
         // returns only the actual face without the top of the head.
         // This seems to do the job pretty well.
         return padRect(box, {
           top: box.height * 0.2
         });
-      }) : [...stage3]
+      }) : [...boudingRect]
 
 
-    setAllBoxPhases([stage1, stage2, stage3, stage4])
+      const allStages = [faceDetectionBoxes, upperBufferBoxes, boudingRect, smartCrop]
+
+      const firstDrawIndex = specificStage !== -1 ? specificStage : 0
+
+        allStages[firstDrawIndex].forEach((box) => {
+          const drawBox = new faceapi.draw.DrawBox(box,  {...BOX_OPTIONS[firstDrawIndex]});
+          drawBox.draw(imageCanvas);
+      }) 
+  
+    setAllBoxPhases(allStages)
     setCanvas(imageCanvas)
 
-}, [setAllBoxPhases])
+}, [specificStage, setAllBoxPhases])
 
 useEffect(() => {
-    if (stage <= 0 || stage >= 4 || allBoxPhases.length === 0) {
+
+    if (specificStage !== -1 || stage <= 0 || stage >= 4 || allBoxPhases.length === 0) {
         return
     }
-
+ 
     const startingRect = allBoxPhases[stage-1]
     const endingRect = allBoxPhases[stage]
 
     animateRectangles(startingRect, endingRect, canvas, BOX_OPTIONS[stage], 1000)
 
-}, [stage, allBoxPhases, canvas])
+}, [stage, allBoxPhases, canvas, specificStage])
 
 const onNextAnimationStage = () => {
     setStage(stage + 1)
@@ -111,7 +118,7 @@ const onNextAnimationStage = () => {
   return(
   <> 
     <BaseFaceAPIImage drawBoxes={animateBoxes} {...faceDetectionProps} />
-    <button onClick={onNextAnimationStage}>Go</button>
+    {specificStage === -1 && <Button onClick={onNextAnimationStage} text='Next Step'/>}
   </>)
 }
 

@@ -1,7 +1,9 @@
 import { useState, useEffect, useRef } from 'react';
 import * as faceapi from 'face-api.js';
 
-const useDetections = (imageSrc, faceDetector = new faceapi.TinyFaceDetectorOptions()) => {
+const defaultFaceDetector = new faceapi.TinyFaceDetectorOptions()
+
+const useDetections = (imageSrc, faceDetector = defaultFaceDetector) => {
     const imageRef = useRef();
     const canvasRef = useRef();
     const [detections, setDetections] = useState([])
