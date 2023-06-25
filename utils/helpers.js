@@ -12,6 +12,6 @@ export function loadImage(imageUrl) {
     });
   }
 
-export const getServerURL = () => `http://localhost:${SERVER_PORT}`
+export const getServerURL = () => `https://face-detection-deck-a337e2031eaa.herokuapp.com`
 
 export const getServerImage = imgSrc => `${getServerURL()}/images/${imgSrc}`
