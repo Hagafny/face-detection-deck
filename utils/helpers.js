@@ -1,3 +1,4 @@
+const isLocal = true
 const SERVER_PORT = 5000
 
 export function loadImage(imageUrl) {
@@ -12,6 +13,8 @@ export function loadImage(imageUrl) {
     });
   }
 
-export const getServerURL = () => `https://face-detection-deck-a337e2031eaa.herokuapp.com`
+export const getServerURL = () => isLocal ?
+                         `http://localhost:${SERVER_PORT}` :
+                         `https://face-detection-deck-a337e2031eaa.herokuapp.com`
 
 export const getServerImage = imgSrc => `${getServerURL()}/images/${imgSrc}`

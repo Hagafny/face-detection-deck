@@ -24,7 +24,7 @@ const IntroSlide = ({ showDetections }) => (
   <div>
     <div style={{textAlign: 'center', fontSize: '46px'}}>Ron Hagafny</div>
     <p></p>
-    <ImageDeck src='mixtiles.svg' height='75px' />
+    <ImageDeck src='mixtiles.png' height='75px' />
   </div>
   </SideBySide>
   </div>
