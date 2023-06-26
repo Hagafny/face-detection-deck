@@ -181,8 +181,8 @@ const FaceDetectionApplet = () => {
 
         <div style={{ display: 'flex', flexDirection: 'column', marginTop: '1rem' }}>
           <CheckBoxLabelRow checked={drawDetections} onChange={(e) => setDrawDetections(e.target.checked)} label="Draw Detections" />
+          <CheckBoxLabelRow checked={drawExpressions} onChange={(e) => setDrawExpressions(e.target.checked)} label="Draw Facial Expressions" />
           <CheckBoxLabelRow checked={drawLandmarks} onChange={(e) => setDrawLandmarks(e.target.checked)} label="Draw Landmarks" />
-          <CheckBoxLabelRow checked={drawExpressions} onChange={(e) => setDrawExpressions(e.target.checked)} label="Draw Expressions" />
         </div>
       </div>
     </div>

@@ -213,6 +213,30 @@ function CodeExample() {
 
 ```
 
+```js showNumbers 8:15
+import React, { useEffect, useRef  } from 'react';
+import useFaceApiModels from './useFaceApiModels';
+
+function CodeExample() {
+  const modelsLoaded = useFaceApiModels()
+  const imageRef = useRef()
+
+  useEffect(() => {
+    const detectFaces = async () => {
+        if (modelsLoaded && imageRef.current) {
+            // Ready to use Face Detection
+        }
+    }
+    detectFaces()
+  }, [modelsLoaded, imageRef])
+
+  return (
+    <img ref={imageRef} src='example.png' />
+  );
+}
+
+```
+
 ```js 11:13
 import React, { useEffect, useRef  } from 'react';
 import useFaceApiModels from './useFaceApiModels';
@@ -604,12 +628,6 @@ function CodeExample() {
     <span>If we go with the tiny model, it will not detect some faces</span>
     <span>Has an impact on bundle size</span>
   </AnimatedBulletList>
-</SlideLayout>
-
----
-
-<SlideLayout title='Summary' direction='column'>
-    kjh
 </SlideLayout>
 
 ---

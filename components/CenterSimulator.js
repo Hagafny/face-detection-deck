@@ -26,18 +26,23 @@ function CenterSimulator({onLastImage = NO_OP, src, ...imageProps}) {
     const step = useSteps(2)
 
     useEffect(() => {
-        if (step === 1) {
-        const img = imageRef.current
-        const canvas = canvasRef.current
+      const canvas = canvasRef.current
+      if (step === 0) {
+        const canvas = canvasRef.current;
+        const context = canvas.getContext('2d');
+        context.clearRect(0, 0, canvas.width, canvas.height);
+      }
+      if (step === 1) {
+      const img = imageRef.current
 
-        const displaySize = { width: img.width, height: img.height };
-        faceapi.matchDimensions(canvas, displaySize);
-        const resizedDetections = faceapi.resizeResults(detections, displaySize);
-        resizedDetections.forEach((box) => {
-            const drawBox = new faceapi.draw.DrawBox(box, BOX_OPTIONS);
-            drawBox.draw(canvas);
-        }) 
-    }
+      const displaySize = { width: img.width, height: img.height };
+      faceapi.matchDimensions(canvas, displaySize);
+      const resizedDetections = faceapi.resizeResults(detections, displaySize);
+      resizedDetections.forEach((box) => {
+          const drawBox = new faceapi.draw.DrawBox(box, BOX_OPTIONS);
+          drawBox.draw(canvas);
+      }) 
+      }
     if (step === 2) {
         const croppedImage = cropImage(imageRef.current, {width: 2160, height: 2160, x: 0, y: 840});
         onLastImage(croppedImage);

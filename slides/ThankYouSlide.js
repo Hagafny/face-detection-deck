@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { useSteps } from 'mdx-deck'
 import { ImageDeck } from '../images/ImageDeck.js';
 import FaceAPIImage from '../components/FaceAPIImage.js';
 import * as faceapi from 'face-api.js'
@@ -10,9 +11,21 @@ const twitterImage = <ImageDeck style={{ width: '81px', height: '128px' }} src='
 const potImage = <ImageDeck style={{ width: '128px', height: '128px' }} src='pot.png'/>
 const faceDetector =  new faceapi.SsdMobilenetv1Options({ minConfidence: 0.2 });
 
-const ThankYouSlide = () => (
-  <> 
-    <h1>Thank You For Listening!</h1>
+const ThankYouSlide = () => {
+  const step = useSteps(2)
+  const [showImage, setShowImage] = useState(false)
+
+  useEffect(() => {
+    if (step === 0 || step === 1) {
+    setShowImage(!!step)
+    }
+    else {
+      setShowImage(true)
+    }
+  }, [step])
+
+  return (<> 
+    {showImage && <h1>Thank You For Listening!</h1>}
     <div
       style={{
         display: 'flex',
@@ -35,17 +48,17 @@ const ThankYouSlide = () => (
         <Logo imageComp={twitterImage}><a href="https://twitter.com/TheGafny" target="_blank" rel="noreferrer">@TheGafny</a></Logo>  
         <Logo imageComp={potImage}><a href="https://proofoftalk.com" target="_blank" rel="noreferrer">Proof of Talk Podcast</a></Logo>
       </div>
-          <FaceAPIImage
+          {showImage && <FaceAPIImage
               faceDetector={faceDetector} 
               drawDetections={true}
               drawExpressions={true}
               src={`https://res.cloudinary.com/mixtiles/image/upload/v1687765736/reactNext/${PICTURE_CODE}.jpg`}
               serverImage={false}
               style={{width: '800px', height: '600px'}}
-           />
+           />}
     </div>
-    </>
-  );
+    </>)
+}
 
 const Logo = ({
   imageComp,
