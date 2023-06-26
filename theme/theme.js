@@ -3,6 +3,11 @@ import base from './base';
 const { TEXT, BACKGROUND, PRIMARY } = base;
 
 export default {
+  fonts: {
+    body: 'Mixtiles Sans',
+    h1: 'Mixtiles Sans SemiBold',
+    h2: 'Mixtiles Sans SemiBold'
+  },
   colors: {
     text: TEXT,
     background: BACKGROUND,

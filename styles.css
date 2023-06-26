@@ -2,9 +2,13 @@ ul {
   list-style: none; /* Remove default bullets */
 }
 
+body {
+  background-color: red;
+}
+
 ul li::before {
   content: '\2022'; /* Add content: \2022 is the CSS Code/unicode for a bullet */
-  color: #375437; /* Change the color */
+  color: #EB2371; /* Change the color */
   font-weight: bold; /* If you want it to be bold */
   display: inline-block; /* Needed to add space between the bullet and the text */
   width: 1em; /* Also needed for space (tweak if needed) */
@@ -12,10 +16,23 @@ ul li::before {
 }
 
 a {
-  color: #ff0072;
+  color: #EB2371;
 }
 
 @keyframes fadeIn {
   0% { opacity: 0; }
   100% { opacity: 1; }
+}
+
+@font-face {
+  font-family: 'Mixtiles Sans SemiBold';
+  src: url('http://localhost:5000/fonts/MixtilesSans-500Medium.otf');
+  font-display: swap;
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Mixtiles Sans';
+  src: url('http://localhost:5000/fonts/MixtilesSans-400Regular.otf');
+  font-display: swap;
 }
