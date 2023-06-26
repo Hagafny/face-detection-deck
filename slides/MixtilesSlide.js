@@ -4,12 +4,12 @@ import { SlideLayout } from '../layouts/SlideLayout'
  
 export const MixtilesSlide = () => {
   return (
-    <SlideLayout title="We Help People Create Homes They Love" screenHeight justifyContent>
+    <SlideLayout title="We Help People Create Homes They Love" screenHeight justifyContent='center'>
         <ImageDeck
-          src={'mixtiles_pic.png'}
+          src={'homes.png'}
           width={'80%'}
           height={'80%'}
-          styles={{ backgroundSize: 'cover',  }}
+          styles={{ backgroundSize: 'cover'  }}
       />
     </SlideLayout>
   )

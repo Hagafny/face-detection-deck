@@ -24,6 +24,7 @@ import GoodCropBadCropSlide from './slides/GoodCropBadCropSlide.js'
 import MixtilesSlide from './slides/MixtilesSlide.js'
 import SmartCropSlide from './slides/SmartCropSlide.js'
 import ThankYouSlide from './slides/ThankYouSlide.js'
+import CodeExample from './components/CodeExample.js'
 
 export const theme = myTheme
 const cropExample = 'ron2.jpg'
@@ -84,6 +85,10 @@ const cropExample = 'ron2.jpg'
 
 ---
 
+# Object Detection
+
+---
+
 <SlideLayout title='Tensorflow Summary' direction='column'>
     <div
       style={{
@@ -124,9 +129,411 @@ const cropExample = 'ron2.jpg'
 
 ---
 
-<SlideLayout title='Face Detection Code examples'>
+<CodeSurfer theme={vsDark}>
 
-</SlideLayout>
+```js
+import { useEffect, useState } from 'react'
+import * as faceapi from 'face-api.js';
+
+const useFaceApiModels = () => {
+  const [modelsLoaded, setModelsLoaded] = useState(false)
+
+  useEffect(() => {
+      const loadModels = async () => {
+        await Promise.all([
+          faceapi.loadTinyFaceDetectorModel('/models'),
+          faceapi.loadFaceLandmarkModel('/models'),
+          faceapi.loadFaceExpressionModel('/modls')
+        ])
+
+        setModelsLoaded(true)
+      };
+
+      loadModels();
+    }, []);
+
+    return modelsLoaded
+}
+
+```
+
+```js showNumbers 5:19
+import { useEffect, useState } from 'react'
+import * as faceapi from 'face-api.js';
+
+const useFaceApiModels = () => {
+  const [modelsLoaded, setModelsLoaded] = useState(false)
+
+  useEffect(() => {
+      const loadModels = async () => {
+        await Promise.all([
+          faceapi.loadTinyFaceDetectorModel('/models'),
+          faceapi.loadFaceLandmarkModel('/models'),
+          faceapi.loadFaceExpressionModel('/modls')
+        ])
+
+        setModelsLoaded(true)
+      };
+
+      loadModels();
+    }, []);
+
+    return modelsLoaded
+}
+```
+
+```js showNumbers 1:20
+import React, { useEffect, useRef  } from 'react';
+import useFaceApiModels from './useFaceApiModels';
+
+function CodeExample() {
+  const modelsLoaded = useFaceApiModels()
+  const imageRef = useRef()
+
+  useEffect(() => {
+    const detectFaces = async () => {
+        if (modelsLoaded && imageRef.current) {
+            // Ready to use Face Detection
+        }
+    }
+    detectFaces()
+  }, [modelsLoaded, imageRef])
+
+  return (
+    <img ref={imageRef} src='example.png'} />
+  );
+}
+
+```
+
+```js 11:13
+import React, { useEffect, useRef  } from 'react';
+import useFaceApiModels from './useFaceApiModels';
+
+function CodeExample() {
+  const modelsLoaded = useFaceApiModels()
+  const imageRef = useRef()
+
+  useEffect(() => {
+    const detectFaces = async () => {
+        if (modelsLoaded && imageRef.current) {
+            const detections = await faceapi.detectAllFaces(
+              imageRef.current,
+              new faceapi.TinyFaceDetectorOptions())
+        }
+    }
+    detectFaces()
+  }, [modelsLoaded, imageRef])
+
+  return (
+    <img ref={imageRef} src='example.png' />
+  );
+}
+```
+
+```js 11:15
+import React, { useEffect, useRef  } from 'react';
+import useFaceApiModels from './useFaceApiModels';
+
+function CodeExample() {
+  const modelsLoaded = useFaceApiModels()
+  const imageRef = useRef()
+
+  useEffect(() => {
+    const detectFaces = async () => {
+        if (modelsLoaded && imageRef.current) {
+            const detections = await faceapi.detectAllFaces(
+              imageRef.current,
+              new faceapi.TinyFaceDetectorOptions())
+              .withFaceLandmarks()
+              .withFaceExpressions();
+        }
+    }
+    detectFaces()
+  }, [modelsLoaded, imageRef])
+
+  return (
+    <img ref={imageRef} src='example.png' />
+  );
+}
+```
+
+</CodeSurfer>
+
+---
+
+# How do we use the detections?
+
+---
+
+<CodeSurferColumns themes={[vsDark]}>
+
+<Step>
+
+```js 11:15
+import React, { useEffect, useRef  } from 'react';
+import useFaceApiModels from './useFaceApiModels';
+
+function CodeExample() {
+  const modelsLoaded = useFaceApiModels()
+  const imageRef = useRef()
+
+  useEffect(() => {
+    const detectFaces = async () => {
+        if (modelsLoaded && imageRef.current) {
+            const detections = await faceapi.detectAllFaces(
+              imageRef.current,
+              new faceapi.TinyFaceDetectorOptions())
+              .withFaceLandmarks()
+              .withFaceExpressions();
+        }
+    }
+    detectFaces()
+  }, [modelsLoaded, imageRef])
+
+  return (
+    <img ref={imageRef} src={exampleImage}} />
+  );
+}
+```
+
+<CodeExample />
+
+</Step>
+
+<Step>
+
+```js
+import React, { useEffect, useRef  } from 'react';
+import useFaceApiModels from './useFaceApiModels';
+
+function CodeExample() {
+  const modelsLoaded = useFaceApiModels()
+  const imageRef = useRef()
+  const canvasRef = useRef()
+
+  useEffect(() => {
+    const detectFaces = async () => {
+        if (modelsLoaded && imageRef.current) {
+            const detections = await faceapi.detectAllFaces(
+              imageRef.current,
+              new faceapi.TinyFaceDetectorOptions())
+              .withFaceLandmarks()
+              .withFaceExpressions();
+
+              const canvas = canvasRef.current
+        }
+    }
+    detectFaces()
+  }, [modelsLoaded, imageRef, canvasRef])
+
+  return (
+    <div style={{position: 'relative'}}>
+      <img ref={imageRef} src={exampleImage}} />
+      <canvas ref={canvasRef} style={{position: 'absolute', top: 0, left: 0}} />
+    </div>
+  );
+}
+```
+
+<CodeExample />
+
+</Step>
+
+<Step>
+
+```js
+import React, { useEffect, useRef  } from 'react';
+import useFaceApiModels from './useFaceApiModels';
+
+function CodeExample() {
+  const modelsLoaded = useFaceApiModels()
+  const imageRef = useRef()
+  const canvasRef = useRef()
+
+  useEffect(() => {
+    const detectFaces = async () => {
+        if (modelsLoaded && imageRef.current) {
+            const detections = await faceapi.detectAllFaces(
+              imageRef.current,
+              new faceapi.TinyFaceDetectorOptions())
+              .withFaceLandmarks()
+              .withFaceExpressions();
+
+              const canvas = canvasRef.current
+
+              const displaySize = { 
+                width: imageRef.current.width,
+                height: imageRef.current.height 
+              };
+
+              faceapi.matchDimensions(canvas, displaySize);
+        }
+    }
+    detectFaces()
+  }, [modelsLoaded, imageRef, canvasRef])
+
+  return (
+    <div style={{position: 'relative'}}>
+      <img ref={imageRef} src={exampleImage}} />
+      <canvas ref={canvasRef} style={{position: 'absolute', top: 0, left: 0}} />
+    </div>
+  );
+}
+```
+
+<CodeExample />
+
+</Step>
+
+<Step>
+
+```js
+import React, { useEffect, useRef  } from 'react';
+import useFaceApiModels from './useFaceApiModels';
+
+function CodeExample() {
+  const modelsLoaded = useFaceApiModels()
+  const imageRef = useRef()
+  const canvasRef = useRef()
+
+  useEffect(() => {
+    const detectFaces = async () => {
+        if (modelsLoaded && imageRef.current) {
+            const detections = await faceapi.detectAllFaces(
+              imageRef.current,
+              new faceapi.TinyFaceDetectorOptions())
+              .withFaceLandmarks()
+              .withFaceExpressions();
+
+              const canvas = canvasRef.current
+
+              const displaySize = { 
+                width: imageRef.current.width,
+                height: imageRef.current.height 
+              };
+
+              faceapi.matchDimensions(canvas, displaySize);
+
+              faceapi.draw.drawDetections(canvas, detections)
+        }
+    }
+    detectFaces()
+  }, [modelsLoaded, imageRef, canvasRef])
+
+  return (
+    <div style={{position: 'relative'}}>
+      <img ref={imageRef} src={exampleImage}} />
+      <canvas ref={canvasRef} style={{position: 'absolute', top: 0, left: 0}} />
+    </div>
+  );
+}
+```
+
+<CodeExample useDetections={true} />
+
+</Step>
+
+<Step>
+
+```js 26:28
+import React, { useEffect, useRef  } from 'react';
+import useFaceApiModels from './useFaceApiModels';
+
+function CodeExample() {
+  const modelsLoaded = useFaceApiModels()
+  const imageRef = useRef()
+  const canvasRef = useRef()
+
+  useEffect(() => {
+    const detectFaces = async () => {
+        if (modelsLoaded && imageRef.current) {
+            const detections = await faceapi.detectAllFaces(
+              imageRef.current,
+              new faceapi.TinyFaceDetectorOptions())
+              .withFaceLandmarks()
+              .withFaceExpressions();
+
+              const canvas = canvasRef.current
+
+              const displaySize = { 
+                width: imageRef.current.width,
+                height: imageRef.current.height 
+              };
+
+              faceapi.matchDimensions(canvas, displaySize);
+
+              faceapi.draw.drawDetections(canvas, detections)
+              faceapi.draw.drawFaceExpressions(canvas, detections)
+        }
+    }
+    detectFaces()
+  }, [modelsLoaded, imageRef, canvasRef])
+
+  return (
+    <div style={{position: 'relative'}}>
+      <img ref={imageRef} src={exampleImage}} />
+      <canvas ref={canvasRef} style={{position: 'absolute', top: 0, left: 0}} />
+    </div>
+  );
+}
+```
+
+<CodeExample useDetections={true} useExpressions={true} />
+
+</Step>
+
+<Step>
+
+```js 26:29
+import React, { useEffect, useRef  } from 'react';
+import useFaceApiModels from './useFaceApiModels';
+
+function CodeExample() {
+  const modelsLoaded = useFaceApiModels()
+  const imageRef = useRef()
+  const canvasRef = useRef()
+
+  useEffect(() => {
+    const detectFaces = async () => {
+        if (modelsLoaded && imageRef.current) {
+            const detections = await faceapi.detectAllFaces(
+              imageRef.current,
+              new faceapi.TinyFaceDetectorOptions())
+              .withFaceLandmarks()
+              .withFaceExpressions();
+
+              const canvas = canvasRef.current
+
+              const displaySize = { 
+                width: imageRef.current.width,
+                height: imageRef.current.height 
+              };
+
+              faceapi.matchDimensions(canvas, displaySize);
+
+              faceapi.draw.drawDetections(canvas, detections)
+              faceapi.draw.drawFaceExpressions(canvas, detections)
+              faceapi.draw.drawFaceLandmarks(canvas, detections)
+        }
+    }
+    detectFaces()
+  }, [modelsLoaded, imageRef, canvasRef])
+
+  return (
+    <div style={{position: 'relative'}}>
+      <img ref={imageRef} src={exampleImage}} />
+      <canvas ref={canvasRef} style={{position: 'absolute', top: 0, left: 0}} />
+    </div>
+  );
+}
+```
+
+<CodeExample useDetections={true} useExpressions={true} useLandmarks={true} />
+
+</Step>
+
+</CodeSurferColumns>
 
 ---
 
@@ -147,73 +554,11 @@ const cropExample = 'ron2.jpg'
 
 ---
 
-#How would this look in code?
-
----
-
-<CodeSurferColumns theme={nightOwl}>
-
-<Step>
-
-```js
-code for first crop
-```
-
-<CropSimulatorPhase phase={0} src={cropExample} style={{width:'400px', height: '600px'}} />
-
-</Step>
-
-<Step>
-
-```js 
-// SlideSction.js
-import React, { useState, useEffect } from 'react'
-import { BuilderComponent, builder } from '@builder.io/react'
-
-export const BuilderSlideSection = () => {
-  const [builderContentJson, setBuilderContentJson] = useState(null)
-
-  useEffect(() => {
-    builder
-      .get('slide', { url: window.location.pathname })
-      .then(setBuilderContentJson)
-  }, [])
-
-  return <BuilderComponent model='slide' content={builderContentJson} />
-}
-```
-
-<CropSimulatorPhase phase={1} src={cropExample} style={{width:'400px', height: '600px'}} />
-
-</Step>
-
-<Step>
-
-```js 2
-check
-code for third crop
-```
-
-<CropSimulatorPhase phase={2} src={cropExample} style={{width:'400px', height: '600px'}} />
-
-</Step>
-
-<Step>
-
-```js 2
-finish
-code for smart crop
-```
-
-<CropSimulatorPhase phase={3}  src={cropExample} style={{width:'400px', height: '600px'}} />
-
-</Step>
-
-</CodeSurferColumns>
-
----
-
 <GoodCropBadCropSlide />
+
+---
+
+# Results
 
 ---
 
