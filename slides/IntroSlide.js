@@ -15,7 +15,7 @@ const faceDetector = new faceapi.TinyFaceDetectorOptions({ inputSize: 128, score
 
 const IntroSlide = ({ showDetections }) => (
     <div style={{ width: '1024px', margin: '0 auto', height: '100%'}}>
-    <h2 style={{ textAlign: 'center'}}>How we used Face Detection to create a delightful User Experience</h2>
+    <h2 style={{ textAlign: 'center'}}>How We Used Face Detection To Create A Delightful User Experience</h2>
 
 <SideBySide style={{ marginTop: '80px'}}>
   <div style={{ display: 'flex', justifyContent: 'center'}}>
@@ -24,7 +24,7 @@ const IntroSlide = ({ showDetections }) => (
   <div>
     <div style={{textAlign: 'center', fontSize: '46px'}}>Ron Hagafny</div>
     <p></p>
-    <ImageDeck src='mixtiles.png' height='75px' />
+    <ImageDeck src='mixtiles.png' height='200px' />
   </div>
   </SideBySide>
   </div>

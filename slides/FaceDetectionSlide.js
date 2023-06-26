@@ -1,12 +1,15 @@
 import React from 'react'
 import FaceDetectionApplet from '../components/FaceDetectionApplet'
 import { SlideLayout } from '../layouts/SlideLayout'
+import MuiTheme from '../theme/MuiTheme'
 
 const FaceDetectionSlide = () => {
   return (
-    <SlideLayout title="face-api.js">
+    <MuiTheme> 
+      <SlideLayout title="Examples" justifyContent='center'>
         <FaceDetectionApplet />
-    </SlideLayout>
+      </SlideLayout>
+    </MuiTheme>
   )
 }
 

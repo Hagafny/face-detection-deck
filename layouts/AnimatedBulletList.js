@@ -2,7 +2,7 @@ import React from 'react';
 import { Steps } from 'mdx-deck';
 
 export const AnimatedBulletList = ({ children }) => (
-  <div style={{ marginLeft: '300px'}}> 
+  <div> 
     <Steps>
       {React.Children.map(children, (child, index) => {
             return <div key={index} style={{

@@ -10,8 +10,10 @@ import { IntroGrid } from './layouts/IntroGrid.js'
 import { ZoomSteps } from './components/ZoomSteps/ZoomSteps.js'
 import { SideBySide } from './layouts/SideBySide.js'
 import myTheme from './theme/theme'
+import codeSurferTheme from './theme/codeSurferTheme.js'
 import { SlideLayout } from './layouts/SlideLayout.js'
 import CropSimulator from './components/CropSimulator.js'
+import CropSimulatorPhase from './components/CropSimulatorPhase.js'
 import MLModalLoader from './components/MLModalLoader.js'
 import { AnimatedBulletList } from './layouts/AnimatedBulletList.js';
 import IntroSlide from './slides/introSlide.js'
@@ -19,56 +21,58 @@ import FaceDetectionSlide from './slides/FaceDetectionSlide.js'
 import Tile from './components/Tile.js'
 import SimulatorSlide from './slides/SimulatorSlide.js'
 import GoodCropBadCropSlide from './slides/GoodCropBadCropSlide.js'
+import MixtilesSlide from './slides/MixtilesSlide.js'
+import SmartCropSlide from './slides/SmartCropSlide.js'
+import ThankYouSlide from './slides/ThankYouSlide.js'
 
 export const theme = myTheme
 const smartCropExample = 'ron2.jpg'
 
+<Head>
+  <title>Face Detection </title>
+</Head>
 <MLModalLoader/>
 <IntroSlide showDetections={false} />
 
 ---
 
-<IntroSlide showDetections={true} />
+<MixtilesSlide />
+
+---
+<h1>The User Experience</h1>
+<iframe style={{ width: '85vw', height: '750px'}} src="https://www.mixtiles.com/photos" title="Mixtiles Tile Picker"></iframe>
 
 ---
 
-<SlideLayout title='Agenda' direction='column'>
-  <AnimatedBulletList>
-    <span>Problem Identification</span>
-    <span>The Learning Curve </span>
-    <span> Deep Dive Into Code </span>
-  </AnimatedBulletList>
+<SlideLayout title='Customers Recieved Poorly Cropped Tiles' direction='column'>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        marginTop: '200px'
+      }}
+    >
+      <ZoomSteps>
+        <ImageDeck src={'support.png'} style={{ width: '256px', height: '256px' }}/>
+        <ImageDeck src={'satisfaction.png'} style={{ width: '256px', height: '256px' }}/> 
+      </ZoomSteps>
+    </div>
 </SlideLayout>
 
 ---
 
-<SlideLayout title=''>
-  <iframe style={{ width: '85vw', height: '75vh'}} src="https://www.mixtiles.com/photos" title="Mixtiles Tile Picker"></iframe>
-</SlideLayout>
+<SmartCropSlide />
 
 ---
 
-<SlideLayout title='Users ended up getting tiles that were not cropped appropriately at all.' direction='column'>
-  <AnimatedBulletList>
-    <span>Many complaints to customer support </span>
-    <span>Lowered satisfaction score </span>
-  </AnimatedBulletList>
-</SlideLayout>
-
----
-
-<SlideLayout title='Smart Crop' direction='column'>
-  <AnimatedBulletList>
-    <span>Produces a crop that best encapsulates the scene </span>
-    <span>Does not hurt our current experience </span>
-    <span> Works well on a wide range of modern mobile devices </span>
-  </AnimatedBulletList>
-</SlideLayout>
-
----
-
-<SlideLayout title='Tensorflow'>
-Tenserflow image here
+<SlideLayout title='Tensorflow' screenHeight justifyContent='center'>
+  <ImageDeck
+    width={'50%'}
+    height={'50%'}
+    src='tenserflow.png'
+    styles={{ backgroundSize: 'cover' }}
+  />
 </SlideLayout>
 
 ---
@@ -88,8 +92,13 @@ Tenserflow image here
 
 ---
 
-<SlideLayout title='face-api.js'>
-face-api.js image here
+<SlideLayout title='FaceAPI' screenHeight justifyContent='center'>
+  <ImageDeck
+    width={'50%'}
+    height={'50%'}
+    src='faceapi.png'
+    styles={{ backgroundSize: 'cover' }}
+  />
 </SlideLayout>
 
 ---
@@ -98,7 +107,7 @@ face-api.js image here
 
 ---
 
-<SlideLayout title='Fade Detection Code examples'>
+<SlideLayout title='Face Detection Code examples'>
 
 </SlideLayout>
 
@@ -117,7 +126,11 @@ face-api.js image here
 
 ---
 
-<CodeSurferColumns>
+#hello
+
+---
+
+<CodeSurferColumns theme={codeSurferTheme}>
 
 <Step>
 
@@ -125,18 +138,31 @@ face-api.js image here
 code for first crop
 ```
 
-<CropSimulator specificStage={0} src={smartCropExample} style={{width:'400px', height: '600px'}} />
+<CropSimulatorPhase phase={0} src={smartCropExample} style={{width:'400px', height: '600px'}} />
 
 </Step>
 
 <Step>
 
-```js 2
-hey
-code for second crop
+```js 
+// SlideSction.js
+import React, { useState, useEffect } from 'react'
+import { BuilderComponent, builder } from '@builder.io/react'
+
+export const BuilderSlideSection = () => {
+  const [builderContentJson, setBuilderContentJson] = useState(null)
+
+  useEffect(() => {
+    builder
+      .get('slide', { url: window.location.pathname })
+      .then(setBuilderContentJson)
+  }, [])
+
+  return <BuilderComponent model='slide' content={builderContentJson} />
+}
 ```
 
-<CropSimulator specificStage={1} src={smartCropExample} style={{width:'400px', height: '600px'}} />
+<CropSimulatorPhase phase={1} src={smartCropExample} style={{width:'400px', height: '600px'}} />
 
 </Step>
 
@@ -147,7 +173,7 @@ check
 code for third crop
 ```
 
-<CropSimulator specificStage={2} src={smartCropExample} style={{width:'400px', height: '600px'}} />
+<CropSimulatorPhase phase={2} src={smartCropExample} style={{width:'400px', height: '600px'}} />
 
 </Step>
 
@@ -158,7 +184,7 @@ finish
 code for smart crop
 ```
 
-<CropSimulator specificStage={3}  src={smartCropExample} style={{width:'400px', height: '600px'}} />
+<CropSimulatorPhase phase={3}  src={smartCropExample} style={{width:'400px', height: '600px'}} />
 
 </Step>
 
@@ -170,7 +196,7 @@ code for smart crop
 
 ---
 
-<SlideLayout title='Room for improvements' direction='column'>
+<SlideLayout title='Possible Improvements' direction='column'>
   <AnimatedBulletList>
     <span>Won’t work on images without faces (10% of uploads) </span>
     <span>If we go with the most lightweight model, it will not detect some faces </span>
@@ -180,7 +206,7 @@ code for smart crop
 
 ---
 
-<SlideLayout title='A glimpse Into The Future'>
+<SlideLayout title='Lookiung To The Future'>
 Chat GPT and Dalle Image here
 </SlideLayout>
 
@@ -196,4 +222,4 @@ Chat GPT and Dalle Image here
 
 ---
 
-# Thank you for listening!
+<ThankYouSlide />

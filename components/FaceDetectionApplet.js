@@ -5,7 +5,8 @@ import Box from '@mui/material/Box';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
+import Select from '@mui/material/Select';
+import Slider from '@mui/material/Slider';
 
 import * as faceapi from 'face-api.js';
 import { getServerImage } from '../utils/helpers';
@@ -52,7 +53,7 @@ const FaceDetectionApplet = () => {
         .withFaceExpressions();
 
       if (!imgRef.current) {
-        return
+        return;
       }
 
       const displaySize = { width: imgRef.current.width, height: imgRef.current.height };
@@ -75,8 +76,8 @@ const FaceDetectionApplet = () => {
     setScoreThreshold(parseFloat(e.target.value));
   };
 
-  const handleMinConfidence = (e) => {
-    setMinConfidence(parseFloat(e.target.value));
+  const handleMinConfidence = (e, value) => {
+    setMinConfidence(value);
   };
 
   return (
@@ -105,7 +106,7 @@ const FaceDetectionApplet = () => {
         </Box>
 
         {/* Model Select */}
-        <Box sx={{ minWidth: 120, marginTop: "20px" }}>
+        <Box sx={{ minWidth: 120, marginTop: '20px' }}>
           <FormControl fullWidth>
             <InputLabel id="modelSelect-label">Face Detection Model</InputLabel>
             <Select
@@ -122,8 +123,64 @@ const FaceDetectionApplet = () => {
           </FormControl>
         </Box>
 
+        {selectedModel === FACE_DETECTION_MODELS.TINY && (
+          <div style={{ marginLeft: '1.5rem', marginTop: '1rem' }}>
+            {/* Input Size */}
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <InputLabel id="inputSizeSelect-label">Input Size</InputLabel>
+                <Select
+                  labelId="inputSizeSelect"
+                  id="inputSizeSelect"
+                  value={inputSize}
+                  label="Input Size"
+                  onChange={handleInputSizeChange}
+                >
+                  {tinyFaceDetectorInputSizeOptions.map((size) => (
+                    <MenuItem key={size} value={size}>{size}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+
+            {/* Score Threshold */}
+            <Box sx={{ width: 200, marginTop: '1rem' }}>
+              <FormControl fullWidth>
+                <InputLabel id="scoreThresholdSlider-label">Score Threshold</InputLabel>
+                <Slider
+                  aria-label="Score Threshold"
+                  value={scoreThreshold}
+                  min={0}
+                  max={0.99}
+                  step={0.3}
+                  onChange={handleScoreThresholdChange}
+                />
+              </FormControl>
+            </Box>
+          </div>
+        )}
+
+        {selectedModel === FACE_DETECTION_MODELS.SSD && (
+          <div style={{ marginLeft: '1.5rem', marginTop: '1rem' }}>
+            {/* Min Confidence */}
+            <Box sx={{ width: 200, marginTop: '1rem' }}>
+              <FormControl fullWidth>
+                <InputLabel id="minConfidenceSlider-label">Min Confidence</InputLabel>
+                <Slider
+                  aria-label="Min Confidence"
+                  value={minConfidence}
+                  min={0}
+                  max={0.99}
+                  step={0.3}
+                  onChange={handleMinConfidence}
+                />
+              </FormControl>
+            </Box>
+          </div>
+        )}
+
         <div style={{ display: 'flex', flexDirection: 'column', marginTop: '1rem' }}>
-          <CheckBoxLabelRow checked={drawDetections} onChange={(e) => setDrawDetections(e.target.checked)} label={"Draw Detections"} />
+          <CheckBoxLabelRow checked={drawDetections} onChange={(e) => setDrawDetections(e.target.checked)} label="Draw Detections" />
           <CheckBoxLabelRow checked={drawLandmarks} onChange={(e) => setDrawLandmarks(e.target.checked)} label="Draw Landmarks" />
           <CheckBoxLabelRow checked={drawExpressions} onChange={(e) => setDrawExpressions(e.target.checked)} label="Draw Expressions" />
         </div>
@@ -138,7 +195,8 @@ const CheckBoxLabelRow = ({ checked, onChange, label }) => (
       <Switch checked={checked} onChange={onChange} name={label} />
     }
     label={label}
+    labelPlacement="end"
   />
-)
+);
 
 export default FaceDetectionApplet;

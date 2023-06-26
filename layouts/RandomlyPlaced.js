@@ -1,6 +1,6 @@
 import React from 'react';
 
-const RandomlyPlaced = ({ top, left, style = {}, children }) => {
+export const RandomlyPlaced = ({ top, left, style = {}, children }) => {
   const containerStyle = {
     position: 'absolute',
     zIndex: 2,
@@ -11,5 +11,3 @@ const RandomlyPlaced = ({ top, left, style = {}, children }) => {
 
   return <div style={containerStyle}>{children}</div>;
 };
-
-export { RandomlyPlaced };

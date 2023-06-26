@@ -2,9 +2,9 @@ import React, { useEffect  } from 'react';
 import useDetections from '../hooks/useDetections';
 import { getServerImage } from '../utils/helpers';
 
-function BaseFaceAPIImage({ src, drawBoxes, faceDetector, ...imageProps }) {
+function BaseFaceAPIImage({ src, drawBoxes, faceDetector, serverImage = true, ...imageProps }) {
   const { detections, imageRef, canvasRef } = useDetections(src, faceDetector) 
-  const imageURL = getServerImage(src)
+  const imageURL = serverImage ? getServerImage(src) : src
 
   useEffect(() => {
     if (detections.length > 0) {

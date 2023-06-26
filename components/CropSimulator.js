@@ -4,6 +4,7 @@ import animateRectangles from '../utils/animateRecs';
 import * as faceapi from 'face-api.js';
 import { Button } from './Button/Button';
 import { padRect, unionRects, scaleUpBoundingRect, cropImage, cropToFitFaces } from '../utils/imageUtils'
+import { useSteps } from 'mdx-deck'
 
 const NO_OP = () => {}
 
@@ -25,13 +26,12 @@ const BOX_OPTIONS = [{
 
 const DISPLAY_SIZE = { naturalWidth: 400, naturalHeight: 600 }
 
-
-
 function CropSimulator({specificStage = -1, onLastImage = NO_OP, ...faceDetectionProps}) {
   const [stage, setStage] = useState(0)
   const [allBoxPhases, setAllBoxPhases] = useState([])
   const [canvas, setCanvas] = useState(null)
   const [originalImage, setOriginalImage] = useState(null)
+  const step = useSteps(4)
 
   const animateBoxes = useCallback((detections, imageCanvas, actualImage) => { 
     const boxes = detections.map(detection => detection.detection.box)   
@@ -76,9 +76,9 @@ useEffect(() => {
 
 }, [stage, allBoxPhases, canvas, specificStage])
 
-const onNextAnimationStage = () => {
-  const nextStage = stage + 1  
-  if (nextStage > allBoxPhases.length - 1) { // after final stage 
+useEffect(() => {
+  if (specificStage !== -1) return
+  if (allBoxPhases.length > 0 && step > allBoxPhases.length - 1) { // after final stage 
     const finalRect = allBoxPhases[allBoxPhases.length -1][0]
     const scaledBoundingRect = scaleUpBoundingRect({
       rect: finalRect,
@@ -86,17 +86,11 @@ const onNextAnimationStage = () => {
       originalImageHeight: originalImage.naturalHeight,
     })
     onLastImage(cropImage(originalImage, scaledBoundingRect))
-  } 
+  } else {
+    setStage(step)
+  }
+}, [step,allBoxPhases])
 
-  setStage(nextStage)
-}
-
-  return(
-  <> 
-    <BaseFaceAPIImage drawBoxes={animateBoxes} {...faceDetectionProps} />
-    <div style={{ marginTop: '20px'}}>
-      {specificStage === -1 && <Button onClick={onNextAnimationStage} text='Next Step'/>}
-    </div>
-  </>)
+  return <BaseFaceAPIImage drawBoxes={animateBoxes} {...faceDetectionProps} />
 }
 export default CropSimulator;
