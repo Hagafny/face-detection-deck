@@ -85,7 +85,14 @@ const cropExample = 'ron2.jpg'
 
 ---
 
-# Object Detection
+<SlideLayout title='Object Detection' direction='column' screenHeight style={{ alignItems: 'center'}}>
+<ImageDeck
+  width={'80%'}
+  height={'80%'}
+  src='object_detection.png'
+  styles={{ backgroundSize: 'cover' }}
+/>
+</SlideLayout>
 
 ---
 
@@ -537,12 +544,27 @@ function CodeExample() {
 
 ---
 
-<SlideLayout title='face-api.js Summary' direction='column'>
-   <AnimatedBulletList>
-    <span>Detects only one type of object - faces, and it does it very well</span>
-    <span>If we go with the tiny model, it can weigh as light as 200KB </span>
-      </AnimatedBulletList>
+<SlideLayout title='FaceAPI Summary' direction='column'>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        marginTop: '200px'
+      }}
+    >
+      <ZoomSteps>
+        <ImageDeck src={'fecial.png'} style={{ width: '256px', height: '256px' }}/>
+        <ImageDeck src={'smaller.png'} style={{ width: '256px', height: '256px' }}/> 
+      </ZoomSteps>
+    </div>
 </SlideLayout>
+<Notes>
+
+-- Detects only one type of object - faces, and it does it very well
+-- If we go with the tiny model, it can weigh as light as 200KB
+
+</Notes>
 
 ---
 
@@ -558,32 +580,36 @@ function CodeExample() {
 
 ---
 
-# Results
+<SlideLayout title='Results' direction='column'>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        marginTop: '200px'
+      }}
+    >
+      <ZoomSteps>
+        <ImageDeck src={'happy.png'} style={{ width: '256px', height: '256px' }}/>
+        <ImageDeck src={'dollar.png'} style={{ width: '256px', height: '256px' }}/> 
+      </ZoomSteps>
+    </div>
+</SlideLayout>
 
 ---
 
 <SlideLayout title='Possible Improvements' direction='column'>
   <AnimatedBulletList>
     <span>Won’t work on images without faces</span>
-    <span>If we go with the most lightweight model, it will not detect some faces</span>
+    <span>If we go with the tiny model, it will not detect some faces</span>
     <span>Has an impact on bundle size</span>
   </AnimatedBulletList>
 </SlideLayout>
 
 ---
 
-<SlideLayout title='Lookiung To The Future'>
-Chat GPT and Dalle Image here
-</SlideLayout>
-
----
-
 <SlideLayout title='Summary' direction='column'>
-   <AnimatedBulletList>
-    <span>How cropping became a big issue. </span>
-    <span>Our process of experimentation with Tensorflow </span>
-    <span>Code examples of how face detection works in general and how we used it to build a “smart crop” algorithm </span>
-   </AnimatedBulletList>
+    kjh
 </SlideLayout>
 
 ---

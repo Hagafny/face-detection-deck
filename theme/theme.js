@@ -5,8 +5,13 @@ const { TEXT, BACKGROUND, PRIMARY } = base;
 export default {
   fonts: {
     body: 'Mixtiles Sans',
+    p: 'Mixtiles Sans',
     h1: 'Mixtiles Sans SemiBold',
-    h2: 'Mixtiles Sans SemiBold'
+    h2: 'Mixtiles Sans SemiBold',
+    h3: 'Mixtiles Sans SemiBold',
+    h4: 'Mixtiles Sans SemiBold',
+    h5: 'Mixtiles Sans SemiBold',
+    h6: 'Mixtiles Sans SemiBold',
   },
   colors: {
     text: TEXT,
