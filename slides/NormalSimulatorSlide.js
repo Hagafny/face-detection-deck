@@ -8,7 +8,7 @@ const SimulatorSlide = ({ imageURL }) => {
   return (
     <div style={{ textAlign: 'center', height: '100vh'}}>
     <h1>Center Crop</h1>
-    <div style={{ display: 'flex', gap: '200px', alignItems: 'center' }}>
+    <div style={{ display: 'flex', gap: '200px', alignItems: 'center', marginTop: '162px' }}>
       <div style={{ display:'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
             <CenterSimulator src={imageURL} style={{width:'400px', height: '600px'}} onLastImage={setCroppedImage} />
       </div>

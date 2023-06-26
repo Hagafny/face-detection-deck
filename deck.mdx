@@ -61,14 +61,19 @@ const cropExample = 'ron2.jpg'
     </div>
 </SlideLayout>
 
+<Notes>
+  Users ended up getting tiles that were not cropped appropriately at all
+
+  WHAT CAN WE DO?
+
+</Notes>
+
 ---
 
 <SmartCropSlide />
 <Notes>
 
--- Speaker Notes
-
--- Another note
+-- IMAGINE!
 
 </Notes>
 
@@ -88,7 +93,7 @@ const cropExample = 'ron2.jpg'
 <SlideLayout title='Object Detection' direction='column' screenHeight style={{ alignItems: 'center'}}>
 <ImageDeck
   width={'80%'}
-  height={'80%'}
+  height={'60%'}
   src='object_detection.png'
   styles={{ backgroundSize: 'cover' }}
 />
@@ -113,6 +118,14 @@ const cropExample = 'ron2.jpg'
     </div>
 </SlideLayout>
 
+<Notes>
+
+ What can we do?
+ Is there anything that we're missing?
+
+AND THEN IT HIT US
+</Notes>
+
 ---
 
 # 💡 90% of Mixtiles uploads are humans 💡
@@ -128,11 +141,13 @@ const cropExample = 'ron2.jpg'
   />
 </SlideLayout>
 
-
-
 ---
 
 <FaceDetectionSlide />
+
+<Notes>
+Let's dive into some REACT Code. Starting with our first hook - useFaceApiModels
+</Notes>
 
 ---
 
@@ -289,51 +304,6 @@ function CodeExample() {
 }
 ```
 
-</CodeSurfer>
-
----
-
-# How do we use the detections?
-
----
-
-<CodeSurferColumns themes={[vsDark]}>
-
-<Step>
-
-```js 11:15
-import React, { useEffect, useRef  } from 'react';
-import useFaceApiModels from './useFaceApiModels';
-
-function CodeExample() {
-  const modelsLoaded = useFaceApiModels()
-  const imageRef = useRef()
-
-  useEffect(() => {
-    const detectFaces = async () => {
-        if (modelsLoaded && imageRef.current) {
-            const detections = await faceapi.detectAllFaces(
-              imageRef.current,
-              new faceapi.TinyFaceDetectorOptions())
-              .withFaceLandmarks()
-              .withFaceExpressions();
-        }
-    }
-    detectFaces()
-  }, [modelsLoaded, imageRef])
-
-  return (
-    <img ref={imageRef} src='example.png' />
-  );
-}
-```
-
-<CodeExample />
-
-</Step>
-
-<Step>
-
 ```js
 import React, { useEffect, useRef  } from 'react';
 import useFaceApiModels from './useFaceApiModels';
@@ -366,12 +336,6 @@ function CodeExample() {
   );
 }
 ```
-
-<CodeExample />
-
-</Step>
-
-<Step>
 
 ```js
 import React, { useEffect, useRef  } from 'react';
@@ -412,12 +376,6 @@ function CodeExample() {
   );
 }
 ```
-
-<CodeExample />
-
-</Step>
-
-<Step>
 
 ```js
 import React, { useEffect, useRef  } from 'react';
@@ -460,12 +418,6 @@ function CodeExample() {
   );
 }
 ```
-
-<CodeExample useDetections={true} />
-
-</Step>
-
-<Step>
 
 ```js 26:28
 import React, { useEffect, useRef  } from 'react';
@@ -509,12 +461,6 @@ function CodeExample() {
   );
 }
 ```
-
-<CodeExample useDetections={true} useExpressions={true} />
-
-</Step>
-
-<Step>
 
 ```js 26:29
 import React, { useEffect, useRef  } from 'react';
@@ -560,11 +506,7 @@ function CodeExample() {
 }
 ```
 
-<CodeExample useDetections={true} useExpressions={true} useLandmarks={true} />
-
-</Step>
-
-</CodeSurferColumns>
+</CodeSurfer>
 
 ---
 
@@ -593,6 +535,12 @@ function CodeExample() {
 ---
 
 <NormalSimulatorSlide imageURL={cropExample} />
+
+<Notes>
+
+ME AND SHAUL at the Carmel Market
+
+</Notes>
 
 ---
 

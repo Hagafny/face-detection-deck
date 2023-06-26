@@ -7,7 +7,9 @@ const FaceDetectionSlide = () => {
   return (
     <MuiTheme> 
       <SlideLayout title="Examples" justifyContent='center'>
+        <div style={{ transform: 'scale(1.5)',marginTop: '50px' }}>
         <FaceDetectionApplet />
+        </div>
       </SlideLayout>
     </MuiTheme>
   )
