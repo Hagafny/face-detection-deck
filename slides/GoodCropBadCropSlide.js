@@ -10,7 +10,6 @@ const crop1 = 'ron2.jpg'
 const crop2 = 'orel.jpg'
 const crop3 = 'ron2.jpg'
 
-
 const TilesContainer = styled.div`
     display: flex;
     flex-directoin: row;
@@ -33,7 +32,7 @@ const SwitchContainer = styled.div`
 const GoodCropBadCropSlide = () => {
     const [smartCrop, setSmartCrop] = useState(false) 
     const toggleSmartCrop = () => setSmartCrop(!smartCrop)
-    const step = useSteps(4)
+    const step = useSteps(3)
     
     useEffect(toggleSmartCrop, [step])
 

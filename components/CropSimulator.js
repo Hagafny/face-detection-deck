@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import BaseFaceAPIImage from './BaseFaceAPIImage';
 import animateRectangles from '../utils/animateRecs';
 import * as faceapi from 'face-api.js';
-import { Button } from './Button/Button';
 import { padRect, unionRects, scaleUpBoundingRect, cropImage, cropToFitFaces } from '../utils/imageUtils'
 import { useSteps } from 'mdx-deck'
 
@@ -11,22 +10,22 @@ const NO_OP = () => {}
 const MIXTIELS_PINK = '#eb2371'
 
 const BOX_OPTIONS = [{
-  label:'single face',
+  label:'Single Face',
   boxColor: MIXTIELS_PINK
 },{
-  label:'top buffer',
+  label:'Top Buffer',
   boxColor: MIXTIELS_PINK
 },{
-  label:'faces union',
+  label:'Faces Union',
   boxColor: MIXTIELS_PINK
 },{
-  label:'smart crop',
+  label:'Smart Crop',
   boxColor: MIXTIELS_PINK
 }]
 
 const DISPLAY_SIZE = { naturalWidth: 400, naturalHeight: 600 }
 
-function CropSimulator({specificStage = -1, onLastImage = NO_OP, ...faceDetectionProps}) {
+function CropSimulator({onLastImage = NO_OP, ...faceDetectionProps}) {
   const [stage, setStage] = useState(0)
   const [allBoxPhases, setAllBoxPhases] = useState([])
   const [canvas, setCanvas] = useState(null)
@@ -51,10 +50,8 @@ function CropSimulator({specificStage = -1, onLastImage = NO_OP, ...faceDetectio
 
     const allStages = [faceDetectionBoxes, upperBufferBoxes, [boundingRect], [smartCrop]]
 
-    const firstDrawIndex = specificStage !== -1 ? specificStage : 0
-
-        allStages[firstDrawIndex].forEach((box) => {
-          const drawBox = new faceapi.draw.DrawBox(box,  {...BOX_OPTIONS[firstDrawIndex]});
+        allStages[0].forEach((box) => {
+          const drawBox = new faceapi.draw.DrawBox(box,  {...BOX_OPTIONS[0]});
           drawBox.draw(imageCanvas);
       }) 
   
@@ -62,10 +59,10 @@ function CropSimulator({specificStage = -1, onLastImage = NO_OP, ...faceDetectio
     setCanvas(imageCanvas)
     setOriginalImage(actualImage)
 
-}, [specificStage, setAllBoxPhases])
+}, [setAllBoxPhases])
 
 useEffect(() => {
-    if (specificStage !== -1 || stage <= 0 || stage >= 4 || allBoxPhases.length === 0) {
+    if (stage <= 0 || stage >= 4 || allBoxPhases.length === 0) {
         return
     }
  
@@ -74,10 +71,9 @@ useEffect(() => {
 
     animateRectangles(startingRect, endingRect, canvas, BOX_OPTIONS[stage], 1000)
 
-}, [stage, allBoxPhases, canvas, specificStage])
+}, [stage, allBoxPhases, canvas])
 
 useEffect(() => {
-  if (specificStage !== -1) return
   if (allBoxPhases.length > 0 && step > allBoxPhases.length - 1) { // after final stage 
     const finalRect = allBoxPhases[allBoxPhases.length -1][0]
     const scaledBoundingRect = scaleUpBoundingRect({

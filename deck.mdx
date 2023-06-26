@@ -20,13 +20,14 @@ import IntroSlide from './slides/introSlide.js'
 import FaceDetectionSlide from './slides/FaceDetectionSlide.js'
 import Tile from './components/Tile.js'
 import SimulatorSlide from './slides/SimulatorSlide.js'
+import NormalSimulatorSlide from './slides/NormalSimulatorSlide.js'
 import GoodCropBadCropSlide from './slides/GoodCropBadCropSlide.js'
 import MixtilesSlide from './slides/MixtilesSlide.js'
 import SmartCropSlide from './slides/SmartCropSlide.js'
 import ThankYouSlide from './slides/ThankYouSlide.js'
 
 export const theme = myTheme
-const smartCropExample = 'ron2.jpg'
+const cropExample = 'ron2.jpg'
 
 <Head>
   <title>Face Detection </title>
@@ -101,6 +102,8 @@ const smartCropExample = 'ron2.jpg'
   />
 </SlideLayout>
 
+
+
 ---
 
 <FaceDetectionSlide />
@@ -122,11 +125,15 @@ const smartCropExample = 'ron2.jpg'
 
 ---
 
-<SimulatorSlide />
+<NormalSimulatorSlide imageURL={cropExample} />
 
 ---
 
-#hello
+<SimulatorSlide imageURL={cropExample} />
+
+---
+
+#How would this look in code?
 
 ---
 
@@ -138,7 +145,7 @@ const smartCropExample = 'ron2.jpg'
 code for first crop
 ```
 
-<CropSimulatorPhase phase={0} src={smartCropExample} style={{width:'400px', height: '600px'}} />
+<CropSimulatorPhase phase={0} src={cropExample} style={{width:'400px', height: '600px'}} />
 
 </Step>
 
@@ -162,7 +169,7 @@ export const BuilderSlideSection = () => {
 }
 ```
 
-<CropSimulatorPhase phase={1} src={smartCropExample} style={{width:'400px', height: '600px'}} />
+<CropSimulatorPhase phase={1} src={cropExample} style={{width:'400px', height: '600px'}} />
 
 </Step>
 
@@ -173,7 +180,7 @@ check
 code for third crop
 ```
 
-<CropSimulatorPhase phase={2} src={smartCropExample} style={{width:'400px', height: '600px'}} />
+<CropSimulatorPhase phase={2} src={cropExample} style={{width:'400px', height: '600px'}} />
 
 </Step>
 
@@ -184,7 +191,7 @@ finish
 code for smart crop
 ```
 
-<CropSimulatorPhase phase={3}  src={smartCropExample} style={{width:'400px', height: '600px'}} />
+<CropSimulatorPhase phase={3}  src={cropExample} style={{width:'400px', height: '600px'}} />
 
 </Step>
 
