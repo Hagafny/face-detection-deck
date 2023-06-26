@@ -85,7 +85,7 @@ useEffect(() => {
   } else {
     setStage(step)
   }
-}, [step,allBoxPhases])
+}, [step,allBoxPhases, onLastImage, originalImage])
 
   return <BaseFaceAPIImage drawBoxes={animateBoxes} {...faceDetectionProps} />
 }

@@ -1,6 +1,5 @@
 import React from 'react'
 import { ImageDeck } from '../images/ImageDeck'
-import { RandomlyPlaced } from '../layouts/RandomlyPlaced'
 import { SlideLayout } from '../layouts/SlideLayout'
  
 export const MixtilesSlide = () => {

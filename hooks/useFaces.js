@@ -29,7 +29,7 @@ async function detectFaces(imageUrl) {
   const image = await loadImage(imageUrl);
   const result = await faceapi.detectAllFaces(
     image,
-    new faceapi.TinyFaceDetectorOptions()
+    new faceapi.SsdMobilenetv1Options()
   );
 
   return result.map((detection) => ({

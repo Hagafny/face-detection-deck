@@ -6,9 +6,9 @@ import styled from 'styled-components';
 import Switch from '@mui/material/Switch';
 import MuiTheme from '../theme/MuiTheme';
 
-const crop1 = 'ron2.jpg'
-const crop2 = 'orel.jpg'
-const crop3 = 'ron2.jpg'
+const crop1 = 'bad_crop1.jpg'
+const crop2 = 'bad_crop2.jpeg'
+const crop3 = 'bad_crop3.jpeg'
 
 const TilesContainer = styled.div`
     display: flex;

@@ -8,7 +8,7 @@ const PICTURE_CODE = 'thankyou'
 const mixtilesImage = <ImageDeck style={{ width: '128px', height: '128px' }} src='mixtiles.png'/>
 const twitterImage = <ImageDeck style={{ width: '81px', height: '128px' }} src='twitter.png'/>
 const potImage = <ImageDeck style={{ width: '128px', height: '128px' }} src='pot.png'/>
-const faceDetector =  new faceapi.SsdMobilenetv1Options({ minConfidence: 0.3 });
+const faceDetector =  new faceapi.SsdMobilenetv1Options({ minConfidence: 0.2 });
 
 const ThankYouSlide = () => (
   <> 

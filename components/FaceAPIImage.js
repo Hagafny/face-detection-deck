@@ -18,7 +18,7 @@ function FaceAPIImage({ faceDetector, detectionBoxOptions, drawDetections, drawL
     if (drawLandmarks) {
       faceapi.draw.drawFaceLandmarks(canvas, detections)
     }
-}, [])
+}, [detectionBoxOptions, drawDetections, drawExpressions, drawLandmarks])
 
   return (
     <BaseFaceAPIImage drawBoxes={drawBoxes} faceDetector={faceDetector} {...imageProps} />
