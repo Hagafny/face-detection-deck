@@ -63,6 +63,13 @@ const cropExample = 'ron2.jpg'
 ---
 
 <SmartCropSlide />
+<Notes>
+
+-- Speaker Notes
+
+-- Another note
+
+</Notes>
 
 ---
 
@@ -78,12 +85,20 @@ const cropExample = 'ron2.jpg'
 ---
 
 <SlideLayout title='Tensorflow Summary' direction='column'>
-   <AnimatedBulletList>
-    <span>  Using Object detection is not fast at all. </span>
-    <span>The Model weighed around 5MB! </span>
-    <span>  Using Object detection is not fast at all. </span>
-    <span>The Model weighed around 5MB! </span>
-      </AnimatedBulletList>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        marginTop: '200px'
+      }}
+    >
+      <ZoomSteps>
+        <ImageDeck src={'easy.png'} style={{ width: '256px', height: '256px' }}/>
+        <ImageDeck src={'speedometer.png'} style={{ width: '256px', height: '256px' }}/>
+        <ImageDeck src={'delivery-box.png'} style={{ width: '256px', height: '256px' }}/> 
+      </ZoomSteps>
+    </div>
 </SlideLayout>
 
 ---

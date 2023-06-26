@@ -7,10 +7,9 @@ export const AnimatedBulletList = ({ children }) => (
       {React.Children.map(children, (child, index) => {
             return <div key={index} style={{
               opacity: 0,
-              animation: 'fadeIn 0.5s forwards',
-              animationDelay: `${index * 0.3}s`
+              animation: 'fadeIn 0.5s forwards'
             }}>
-              <div style={{ marginBottom: '20px'}}>• {child}</div>
+              <div style={{ marginBottom: '50px', fontSize: '45px'}}>• {child}</div>
             </div>
           })
       }

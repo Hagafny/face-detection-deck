@@ -6,16 +6,16 @@ import { padRect, unionRects, cropToFitFaces } from '../utils/imageUtils'
 const MIXTIELS_PINK = '#eb2371'
 
 const BOX_OPTIONS = [{
-  label:'single face',
+  label:'Single Face',
   boxColor: MIXTIELS_PINK
 },{
-  label:'top buffer',
+  label:'Top Buffer',
   boxColor: MIXTIELS_PINK
 },{
-  label:'faces union',
+  label:'Faces Union',
   boxColor: MIXTIELS_PINK
 },{
-  label:'smart crop',
+  label:'Smart Crop',
   boxColor: MIXTIELS_PINK
 }]
 
