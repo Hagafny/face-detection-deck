@@ -6,6 +6,9 @@ export const DECK_IMAGES = {
   MIXTILES: 'mixtiles.png',
   TWITTER: 'twitter.png',
   POT: '../images/pot.png',
+  MARKETING: 'marketing.png',
+  ROCKET: 'rocket.png',
+  SEO: 'seo.png',
 };
 
 export const ImageDeck = ({ src, width, height, style = {} }) => {
